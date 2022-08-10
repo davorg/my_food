@@ -1,0 +1,30 @@
+<div class="jumbotron">
+  <h1 class="display-4">MyFood</h1>
+<% IF session.user -%>
+  <p>Enter your likes, dislikes and allergies below:</p>
+  <div class="card text-left">
+  <div class="card-header">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="likes-tab" data-toggle="tab" href="#likes" role="tab">Likes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="dislikes-tab" data-toggle="tab" href="#dislikes" role="tab">Dislikes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="allergies-tab" data-toggle="tab" href="#allergies" role="tab">Allergies</a>
+      </li>
+    </ul>
+  </div>
+  <div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="likes" role="tabpanel" aria-labelledby="likes-tab">Likes</div>
+  <div class="tab-pane fade" id="dislikes" role="tabpanel" aria-labelledby="dislikes-tab">Dislikes</div>
+  <div class="tab-pane fade" id="allergies" role="tabpanel" aria-labelledby="allergies-tab">Allergies</div>
+</div>
+</div>
+<% ELSE -%>
+  <p class="lead">A simple way to tell people what you like, what you don't like and what might kill you!</p>
+  <p><a class="btn btn-primary btn-lg" href="/signup" role="button">Sign up</a>
+     <a class="btn btn-primary btn-lg" href="/signin" role="button">Sign in</a></p>
+<% END -%>
+</div>
