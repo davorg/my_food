@@ -7,10 +7,13 @@ use Dancer2::Plugin::CryptPassphrase;
 our $VERSION = '0.1';
 
 get '/' => sub {
-  template 'index' => {
-    title => 'MyFood',
-    user => get_user(session('user')),
-  };
+  my $args = {};
+
+  if (my $email = session('user')) {
+    $args->{user} = get_user($email);
+  }
+
+  template 'index' => $args;
 };
 
 get '/signup' => sub {
