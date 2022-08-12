@@ -37,6 +37,8 @@ engines:
   session:
     Simple:
       cookie_name: myfood.session
+    Cookie:
+      secret_key: 'the owls are not what they seem'
 
 # session engine
 #
