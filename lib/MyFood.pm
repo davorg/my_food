@@ -46,8 +46,9 @@ post '/signin' => sub {
   if (my $user = login(body_parameters->get('email'),
                        body_parameters->get('password'))) {
     warn "Login succeeded\n";
-    warn "Setting session to: ", $user->email, "\n";
+    warn "Setting session user to: ", $user->email, "\n";
     session user => $user->email;
+    warn "Session user is ", session('user'), "\n";
 
     if (my $path = session('goto')) {
       session goto => undef;
