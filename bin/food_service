@@ -20,7 +20,7 @@ Daemon::Control->new({
 
   program      => '/usr/bin/starman',
   program_args => [ '--workers', 10, '-l', ':1111',
-                    "$abs_dir/bin/app.psgi" ],
+                    "$abs_dir/app.psgi" ],
 
   user  => 'food',
   group => 'psacln',
