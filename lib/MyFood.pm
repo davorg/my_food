@@ -7,7 +7,10 @@ use Dancer2::Plugin::CryptPassphrase;
 our $VERSION = '0.1';
 
 get '/' => sub {
-  template 'index' => { 'title' => 'MyFood' };
+  template 'index' => {
+    title => 'MyFood',
+    user => get_user(session('user')),
+  };
 };
 
 get '/signup' => sub {
@@ -37,7 +40,7 @@ post '/signin' => sub {
   if (my $user = login(body_parameters->get('email'),
                        body_parameters->get('password'))) {
     warn "Login succeeded\n";
-    session user => $user;
+    session user => $user->email;
 
     if (my $path = session('goto')) {
       session goto => undef;
@@ -59,6 +62,48 @@ get '/signout' => sub {
   redirect '/';
 };
 
+post '/person/:person/food' => sub {
+  my $sess_email  = session('user');
+  warn "Sess: $sess_email\n";
+  my $route_email = route_parameters->get('person');
+  warn "Route: $route_email\n";
+
+  if ($sess_email ne $route_email) {
+    die "Wrong user: $route_email / $sess_email\n";
+  }
+
+  my $user = get_user($sess_email);
+
+  for (qw[likes dislikes allergies]) {
+    my $string = body_parameters->get($_);
+    my @list = split /\n\r?/, $string;
+
+    for my $food (@list) {
+      $food =~ s/^\s+//;
+      $food =~ s/\s+$//;
+      next unless length $food;
+      $user->foods->find_or_create({
+        name => $food,
+        food_type => uc substr $_, 0, 1,
+      });
+    }
+  }
+
+  redirect '/';
+};
+
+get '/food/:email' => sub {
+  my $route_email = route_parameters->get('email');
+
+  my $user = get_user($route_email);
+
+  return 404 unless $user;
+
+  template 'user', {
+    user => $user,
+  };
+};
+
 true;
 
 # TODO: Move to utilities library
@@ -68,7 +113,7 @@ sub login {
 
   warn "Looking for $email\n";
 
-  return unless $user = schema('default')->resultset('User')->find({ email => $email });
+  return unless $user = get_user($email);
 
   warn "Found user. Checking password\n";
   warn "$pass / ", $user->password, "\n";
@@ -77,4 +122,11 @@ sub login {
   warn "Password matches\n";
 
   return $user;
+}
+
+sub get_user {
+  return unless @_;
+  my ($email) = @_;
+
+  return schema('default')->resultset('User')->find({ email => $email });
 }

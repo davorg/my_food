@@ -67,6 +67,9 @@ plugins:
     default:
       dsn: dbi:SQLite:dbname=myfood.db
       schema_class: MyFood::Schema
+      options:
+        on_connect_call: use_foreign_keys
+
   CryptPassphrase:
     encoder:
       module: Argon2
