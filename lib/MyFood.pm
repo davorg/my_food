@@ -10,7 +10,10 @@ get '/' => sub {
   my $args = {};
 
   if (my $email = session('user')) {
+    warn "Logged in user is: $email\n";
     $args->{user} = get_user($email);
+  } else {
+    warn "Logged in user is: no-one\n";
   }
 
   template 'index' => $args;
@@ -43,6 +46,7 @@ post '/signin' => sub {
   if (my $user = login(body_parameters->get('email'),
                        body_parameters->get('password'))) {
     warn "Login succeeded\n";
+    warn "Setting session to: ", $user->email, "\n";
     session user => $user->email;
 
     if (my $path = session('goto')) {
