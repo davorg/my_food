@@ -7,21 +7,21 @@
       <div class="card-header">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item">
-            <a class="nav-link active" id="likes-tab" data-toggle="tab" href="#likes" role="tab">Likes</a>
+            <a class="nav-link" id="allergies-tab" data-toggle="tab" href="#allergies" role="tab">Allergies</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" id="dislikes-tab" data-toggle="tab" href="#dislikes" role="tab">Dislikes</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="allergies-tab" data-toggle="tab" href="#allergies" role="tab">Allergies</a>
+            <a class="nav-link active" id="likes-tab" data-toggle="tab" href="#likes" role="tab">Likes</a>
           </li>
         </ul>
         <p>Enter foods one per line.</p>
       </div>
       <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="likes" role="tabpanel" aria-labelledby="likes-tab">
-          <textarea class="form-control border-success" name="likes" id="likes" rows="8">
-            <%- FOR food IN user.get_foods_by_type('L');
+        <div class="tab-pane fade" id="allergies" role="tabpanel" aria-labelledby="allergies-tab">
+          <textarea class="form-control border-danger" name="allergies" id="allergies" rows="8">
+            <%- FOR food IN user.get_foods_by_type('A');
                   food.name _ "\n";
                 END -%>
           </textarea>
@@ -33,9 +33,9 @@
                 END -%>
           </textarea>
         </div>
-        <div class="tab-pane fade" id="allergies" role="tabpanel" aria-labelledby="allergies-tab">
-          <textarea class="form-control border-danger" name="allergies" id="allergies" rows="8">
-            <%- FOR food IN user.get_foods_by_type('A');
+        <div class="tab-pane fade show active" id="likes" role="tabpanel" aria-labelledby="likes-tab">
+          <textarea class="form-control border-success" name="likes" id="likes" rows="8">
+            <%- FOR food IN user.get_foods_by_type('L');
                   food.name _ "\n";
                 END -%>
           </textarea>
