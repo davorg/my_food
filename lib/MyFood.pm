@@ -9,7 +9,7 @@ use Sys::Hostname;
 our $VERSION = '0.1';
 
 get '/' => sub {
-  my $args = {o
+  my $args = {
     host => hostname,
   };
 
