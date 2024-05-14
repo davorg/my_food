@@ -4,10 +4,14 @@ use Dancer2;
 use Dancer2::Plugin::DBIC;
 use Dancer2::Plugin::CryptPassphrase;
 
+use Sys::Hostname;
+
 our $VERSION = '0.1';
 
 get '/' => sub {
-  my $args = {};
+  my $args = {o
+    host => hostname,
+  };
 
   if (my $email = session('user')) {
     warn "Logged in user is: $email\n";
