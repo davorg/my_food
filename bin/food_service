@@ -22,7 +22,7 @@ Daemon::Control->new({
   program_args => [ '--workers', 10, '-l', ':1111',
                     "$abs_dir/app.psgi" ],
 
-  user  => 'food',
+  user  => 'davorg',
   group => 'psacln',
 
   pid_file    => '/var/run/food.pid',

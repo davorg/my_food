@@ -44,7 +44,7 @@
       <button class="btn btn-primary"type="submit">Save</button>
     </div>
   </form>
-  <p>Share your preferences: <a href="/food/<% user.email %>">/foods/<% user.email %></a></p>
+  <p>Share your preferences: <a href="/food/<% user.email %>"><% request.scheme %>://<% request.host %>/foods/<% user.email %></a></p>
 <% ELSE -%>
   <p class="lead">A simple way to tell people what you like, what you don't like and what might kill you!</p>
   <p><a class="btn btn-primary btn-lg" href="/signup" role="button">Sign up</a>
